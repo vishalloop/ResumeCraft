@@ -1,5 +1,5 @@
 import { ApiError } from "@/server/utils/api-error"
-import { Iconfig } from "@/types/config.types";
+import { IConfig } from "@/types/config.types";
 
 function required (key : string) : string{
 
@@ -12,6 +12,6 @@ function required (key : string) : string{
     return value;
 }
 
-export const config : Iconfig = {
+export const config : IConfig = {
     MONGO_URI : required("MONGO_URI"),
 }

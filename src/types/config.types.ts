@@ -1,3 +1,3 @@
-export interface Iconfig {
+export interface IConfig {
     MONGO_URI : string;
 }
