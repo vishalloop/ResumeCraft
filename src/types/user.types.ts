@@ -4,4 +4,9 @@ export interface IUser {
     password : string;
     createdAt? : Date;
     updatedAt? : Date
+};
+
+export interface JwtPayLoad {
+    userId : string;
+    email? : string;
 }

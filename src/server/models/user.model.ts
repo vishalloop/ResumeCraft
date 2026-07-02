@@ -2,7 +2,7 @@ import { IUser } from "@/types/user.types";
 import bcrypt from "bcryptjs";
 import mongoose, { Document } from "mongoose";
 
-interface UserDocument extends IUser ,Document {
+export interface UserDocument extends IUser ,Document {
     comparePassword(candidatePassword: string) : Promise<boolean>;
 }
 

@@ -14,4 +14,5 @@ function required (key : string) : string{
 
 export const config : IConfig = {
     MONGO_URI : required("MONGO_URI"),
+    JWT_SECRET : required("JWT_SECRET"),
 }
