@@ -1,3 +1,4 @@
+import redis from "@/lib/redis";
 import UserModel, { UserDocument } from "../models/user.model";
 import { IRegisterBody } from "../validators/auth.validator";
 
@@ -12,3 +13,4 @@ export function findUserById( id : string ) : Promise<UserDocument | null> {
 export function createUser( data : IRegisterBody) : Promise<UserDocument> {
     return UserModel.create({ ...data });
 }
+
