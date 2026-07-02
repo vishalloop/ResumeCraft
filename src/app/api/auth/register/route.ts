@@ -1,33 +1,49 @@
+import { setAuthCookie } from "@/lib/cookies";
 import { ConnectToDB } from "@/lib/db";
-import { checkUser, createUser } from "@/server/dao/auth.dao";
+import { generateToken } from "@/lib/jwt";
+import { findUserByEmail, createUser } from "@/server/dao/auth.dao";
 import { ApiError } from "@/server/utils/api-error";
 import { errorResponse } from "@/server/utils/api-response";
 import { registerSchema } from "@/server/validators/auth.validator";
-import { NextRequest } from "next/server";
+import { ApiResponse } from "@/types/api.types";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:NextRequest) {
+export async function POST(req:NextRequest) : Promise<NextResponse> {
     try {
+
+        const body = await req.json();
+
+        const result = registerSchema.safeParse(body);
         
-        await ConnectToDB();
-
-        const result = registerSchema.safeParse(await req.json());
-
         if(!result.success) {
             throw new ApiError(result.error.issues[0].message, 400);
         }
 
-        const data = result.data;
+        await ConnectToDB();
 
-        const isExist = await checkUser(data.email);
+        const { data } = result;
 
-        if(isExist) {
-            throw new ApiError("User Exists with this email address." , 404);
-        }
+        const existingUser = await findUserByEmail(data.email);
+
+        if(existingUser) {
+            throw new ApiError("User already exists with this email address." , 409);
+        };
 
         const newUser = await createUser(data);
 
+        const token = generateToken({userId : newUser._id.toString()});
+
+        await setAuthCookie(token);
+
+        return NextResponse.json<ApiResponse>({
+            success : true,
+            message : "User registered successfully.",
+        },{
+            status : 201,
+        });
+
 
     } catch (error) {
-        errorResponse(error);
-    }
+        return errorResponse(error);
+    };
 }

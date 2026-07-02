@@ -1,0 +1,52 @@
+import { setAuthCookie } from "@/lib/cookies";
+import { ConnectToDB } from "@/lib/db";
+import { generateToken } from "@/lib/jwt";
+import { findUserByEmail } from "@/server/dao/auth.dao";
+import { ApiError } from "@/server/utils/api-error";
+import { errorResponse } from "@/server/utils/api-response";
+import { loginSchema } from "@/server/validators/auth.validator";
+import { ApiResponse } from "@/types/api.types";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req:NextRequest) : Promise<NextResponse> {
+    try{
+
+        const body = await req.json();
+
+        const result = loginSchema.safeParse(body);
+
+        if(!result.success) {
+            throw new ApiError(result.error.issues[0].message, 400)
+        }
+
+        await ConnectToDB();
+
+        const { data } = result;
+
+        const existingUser = await findUserByEmail( data.email);
+
+        if(!existingUser) {
+            throw new ApiError("Email address or password is incorrect.", 401);
+        }
+
+        const passwordMatches = await existingUser.comparePassword(data.password);
+
+        if(!passwordMatches) {
+            throw new ApiError("Email address or password is incorrect.", 401);
+        }
+
+        const token = generateToken( { userId : existingUser._id.toString() });
+
+        await setAuthCookie(token);
+
+        return NextResponse.json<ApiResponse>({
+            success : true,
+            message : "User Logged In Successfully."
+        },{
+            status : 200,
+        });
+
+    } catch (error) {
+        return errorResponse(error);
+    }
+}

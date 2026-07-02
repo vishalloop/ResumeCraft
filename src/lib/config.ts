@@ -13,6 +13,7 @@ function required (key : string) : string{
 }
 
 export const config : IConfig = {
+    NODE_ENV : required("NODE_ENV"),
     MONGO_URI : required("MONGO_URI"),
     JWT_SECRET : required("JWT_SECRET"),
 }
