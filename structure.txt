@@ -1,0 +1,102 @@
+VibeSync/
+  src/
+    app/
+      layout.tsx
+      page.tsx
+
+      login/
+        page.tsx
+
+      register/
+        page.tsx
+
+      api/
+        auth/
+          register/
+            route.ts
+          login/
+            route.ts
+          logout/
+            route.ts
+          me/
+            route.ts
+          google/
+            route.ts
+          google/
+            callback/
+              route.ts
+
+        youtube/
+          search/
+            route.ts
+
+    components/
+      ui/
+        Button.tsx
+        Input.tsx
+
+    features/
+      auth/
+        components/
+          AuthInitializer.tsx
+          Protected.tsx
+        hooks/
+          useAuth.ts
+        services/
+          auth.api.ts
+        state/
+          auth.slice.ts
+        pages/
+          LoginPage.tsx
+          RegisterPage.tsx
+
+      dashboard/
+        components/
+          Dashboard.tsx
+        data/
+          moodPlaylists.ts
+        services/
+          youtube.api.ts
+
+      expression/
+        components/
+          FaceExpression.tsx
+        utils/
+          utils.ts
+
+    lib/
+      config.ts
+      db.ts
+      redis.ts
+      jwt.ts
+      cookies.ts
+
+    server/
+      models/
+        user.model.ts
+      dao/
+        auth.dao.ts
+      validators/
+        auth.validator.ts
+      services/
+        google-oauth.service.ts
+
+    types/
+      user.ts
+      auth.ts
+      youtube.ts
+
+  public/
+    illustration.png
+    google.png
+    Check.png
+    model/
+      blaze_face_short_range.tflite
+    screenshots/
+
+  .env.local
+  .env.example
+  .gitignore
+  package.json
+  next.config.ts
+  tsconfig.json

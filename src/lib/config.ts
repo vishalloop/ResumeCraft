@@ -3,7 +3,7 @@ import { IConfig } from "@/types/config.types";
 
 function required (key : string) : string{
 
-    const value = process.env.key;
+    const value = process.env[key];
 
     if(!value){
         throw new ApiError(`${key} not found`);
