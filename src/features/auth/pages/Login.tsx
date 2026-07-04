@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAppSelector } from "@/store/hooks";
 
 export default function Login() {
 
@@ -14,25 +15,26 @@ export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [submitting, setSubmitting] = useState(false);
+
+    const loading = useAppSelector((state) => state.auth.loading);
+    const error = useAppSelector((state) => state.auth.error);
+    const user = useAppSelector((state) => state.auth.user);
+
+        useEffect(() => {
+          if (!loading && user) {
+            router.replace("/");
+          }
+        }, [user, loading, router]);
+    
+      if(loading) return <div>Loading...</div>
+
 
     const handleSubmit = async (e : React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setError("");
-        setSubmitting(true);
-
         try {
             await handleLogin({ email, password});
-            router.push("/");
-        } catch (error) {
-            let message = "An unknown error occurred.";
-            if (axios.isAxiosError(error)) { message = error.response?.data?.message ?? error.message; }
-            setError(message);
-        } finally {
-            setSubmitting(false);
-        }
+        } catch {}
     }
 
   return (
@@ -116,10 +118,10 @@ export default function Login() {
             {/* Sign In */}
 
 <button
-            disabled = {submitting}
-              className={`w-full h-14 rounded-xl ${submitting ? "bg-[#635a5b]"  : "bg-[#F4434E]" } text-white font-semibold text-lg transition-all duration-300 shadow-md`}
+            disabled = {loading}
+              className={`w-full h-14 rounded-xl ${loading ? "bg-[#635a5b]"  : "bg-[#F4434E]" } text-white font-semibold text-lg transition-all duration-300 shadow-md`}
             >
-              {submitting ? "Logging In" : "Login"}
+              {loading ? "Logging In" : "Login"}
             </button>
 
                         
@@ -155,8 +157,8 @@ export default function Login() {
           src="/runnng.png"
           alt="Running Athlete"
           className="w-full h-full object-contain"
-          width= "500"
-          height={5}
+          width= {500}
+          height={50}
         />
 
       </div>

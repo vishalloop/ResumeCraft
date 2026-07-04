@@ -1,7 +1,8 @@
+import Protected from "@/features/auth/components/Protected";
+import DashBoard from "@/features/resume/pages/DashBoard";
+
 export default function Home() {
   return (
-    <div>
-      hello everybody
-    </div>
+    <><Protected><DashBoard/></Protected></>
   );
 }

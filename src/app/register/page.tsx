@@ -1,11 +1,5 @@
-import Register from '@/features/auth/pages/Register'
+import Register from "@/features/auth/pages/Register";
 
-
-
-const page = () => {
-  return (
-    <><Register/></>
-  )
+export default function page() {
+    return <Register />;
 }
-
-export default page;
