@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export function errorResponse<T>(error : T) : NextResponse {
     if(error instanceof Error && "statusCode" in error) {
-        return NextResponse.json<ApiResponse>({
+        return NextResponse.json<ApiResponse<null>>({
             success : false,
             message : error.message,
         },{
@@ -11,7 +11,7 @@ export function errorResponse<T>(error : T) : NextResponse {
         });
     }
 
-    return NextResponse.json<ApiResponse>({
+    return NextResponse.json<ApiResponse<null>>({
         success : false,
         message : "Internal Server Error"
     },{

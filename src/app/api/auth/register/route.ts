@@ -5,7 +5,7 @@ import { findUserByEmail, createUser } from "@/server/dao/auth.dao";
 import { ApiError } from "@/server/utils/api-error";
 import { errorResponse } from "@/server/utils/api-response";
 import { registerSchema } from "@/server/validators/auth.validator";
-import { ApiResponse } from "@/types/api.types";
+import { ApiResponse, AuthUser } from "@/types/api.types";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req:NextRequest) : Promise<NextResponse> {
@@ -35,9 +35,14 @@ export async function POST(req:NextRequest) : Promise<NextResponse> {
 
         await setAuthCookie(token);
 
-        return NextResponse.json<ApiResponse>({
+        return NextResponse.json<ApiResponse<AuthUser>>({
             success : true,
             message : "User registered successfully.",
+            data : {
+                id : newUser._id.toString(),
+                name : newUser.name,
+                email : newUser.email
+            }
         },{
             status : 201,
         });

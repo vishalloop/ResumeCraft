@@ -1,11 +1,11 @@
 import { AuthState } from "@/features/auth/types/auth.types";
-import { AuthUser } from "@/types/user.types";
+import { AuthUser } from "@/types/api.types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 const initialState: AuthState = {
     user: null,
     loading: true,
-    error: null
+    error : null,
 };
 
 export const authSlice = createSlice({
@@ -14,13 +14,16 @@ export const authSlice = createSlice({
     reducers : {
         setUser : (state, action : PayloadAction<AuthUser | null>) => {
             state.user = action.payload;
-        },
+        },  
         setLoading : (state, action : PayloadAction<boolean>) => {
             state.loading = action.payload;
+        },
+        setError : (state, action : PayloadAction<string | null>) => {
+            state.error = action.payload;
         }
     }
 });
 
-export const {setUser, setLoading} = authSlice.actions;
+export const {setUser, setLoading, setError} = authSlice.actions;
 
 export default authSlice.reducer;
