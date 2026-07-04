@@ -1,4 +1,4 @@
-# ResumeCraft 🚀
+# ResumeCraft 
 
 ResumeCraft is a premium, feature-rich, full-stack AI-powered resume builder designed to help job seekers design, optimize, and export professional resumes. Utilizing a modern Next.js 16 + React 19 architecture, it provides users with a real-time side-by-side editing experience, intelligent ATS (Applicant Tracking System) optimization feedback powered by Google GenAI and Mistral AI, and seamless PDF exports.
 
@@ -8,7 +8,7 @@ ResumeCraft is a premium, feature-rich, full-stack AI-powered resume builder des
 
 Live Demo :- https://resumecraft-1h1s.onrender.com
 
-## Key Features ✨
+## Key Features 
 
 - **Real-Time Interactive Editor (Resume Wizard):** Live side-by-side form editing and styled A4 preview.
 - **AI-Powered ATS Score Analyzer:** Evaluates resume matches against target job descriptions and provides concrete enhancement suggestions using Google Gemini & Mistral AI models.
@@ -19,7 +19,7 @@ Live Demo :- https://resumecraft-1h1s.onrender.com
 
 ---
 
-## Tech Stack 🛠️
+## Tech Stack 
 
 - **Framework:** [Next.js 16 (App Router)](https://nextjs.org/) + [React 19](https://react.dev/)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
@@ -31,7 +31,7 @@ Live Demo :- https://resumecraft-1h1s.onrender.com
 
 ---
 
-## Project Structure 📁
+## Project Structure 
 
 ```text
 ├── public/                 # Static assets & public resources
@@ -50,7 +50,7 @@ Live Demo :- https://resumecraft-1h1s.onrender.com
 
 ---
 
-## Getting Started ⚙️
+## Getting Started 
 
 ### Prerequisites
 
@@ -100,7 +100,7 @@ MISTRAL_API_KEY=your_mistral_api_key
 
 ---
 
-## Building and Deployment 📦
+## Building and Deployment 
 
 ### Local Build Verification
 
