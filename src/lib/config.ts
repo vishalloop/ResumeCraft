@@ -19,4 +19,5 @@ export const config : IConfig = {
     REDIS_HOST : required("REDIS_HOST"),
     REDIS_PORT : required("REDIS_PORT"),
     REDIS_PASSWORD : required("REDIS_PASSWORD"),
+    MISTRAL_API_KEY : required("MISTRAL_API_KEY"),
 }

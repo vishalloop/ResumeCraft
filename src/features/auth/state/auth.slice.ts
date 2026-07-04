@@ -4,6 +4,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 
 const initialState: AuthState = {
     user: null,
+    initializing : true,
     loading: false,
     error : null,
 };
@@ -15,6 +16,9 @@ export const authSlice = createSlice({
         setUser : (state, action : PayloadAction<AuthUser | null>) => {
             state.user = action.payload;
         },  
+        setInitializing : (state, action : PayloadAction<boolean>) => {
+            state.initializing = action.payload;
+        },
         setLoading : (state, action : PayloadAction<boolean>) => {
             state.loading = action.payload;
         },
@@ -24,6 +28,6 @@ export const authSlice = createSlice({
     }
 });
 
-export const {setUser, setLoading, setError} = authSlice.actions;
+export const {setUser, setLoading, setError, setInitializing} = authSlice.actions;
 
 export default authSlice.reducer;

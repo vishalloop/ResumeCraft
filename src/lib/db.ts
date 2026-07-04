@@ -3,10 +3,7 @@ import mongoose from "mongoose";
 import { config } from "./config";
 
 export async function ConnectToDB() {
-    try { 
-        await mongoose.connect(config.MONGO_URI);
-        console.log("MongoDB Connected");
-    } catch (error) {
-       console.log("Mongodb Error:", error);
-    }
+    if (mongoose.connection.readyState >= 1) return;
+    await mongoose.connect(config.MONGO_URI);
+    console.log("MongoDB Connected");
 };

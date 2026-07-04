@@ -20,7 +20,12 @@ export async function getCurrentUser() : Promise<UserDocument>{
             throw new ApiError("Unauthorized Access.", 401);
         }
 
-        const decoded = verifyToken(token);
+        let decoded;
+        try {
+            decoded = verifyToken(token);
+        } catch {
+            throw new ApiError("Unauthorized Access: Invalid or expired token.", 401);
+        }
 
         await ConnectToDB();
 
@@ -31,5 +36,6 @@ export async function getCurrentUser() : Promise<UserDocument>{
         }
 
         return user;
+
 
 }

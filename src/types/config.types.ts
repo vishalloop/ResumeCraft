@@ -5,4 +5,5 @@ export interface IConfig {
     REDIS_HOST : string;
     REDIS_PORT : string;
     REDIS_PASSWORD : string;
+    MISTRAL_API_KEY : string;
 }

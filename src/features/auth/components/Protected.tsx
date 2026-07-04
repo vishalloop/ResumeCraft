@@ -8,23 +8,19 @@ export default function Protected({children} : Readonly<{ children: ReactNode;}>
 
     const router = useRouter();
 
-    const loading = useAppSelector((state) => state.auth.loading);
+    const initializing = useAppSelector((state) => state.auth.initializing);
     const user = useAppSelector((state) => state.auth.user);
 
-useEffect(() => {
-    if (!loading && !user) {
+    useEffect(() => {
+      if (!initializing && !user) {
         router.replace("/login");
-    }
-}, [loading, user, router]);
+      }
+    }, [initializing, user, router]);
 
-if (loading || !user) {
-    return <div> Loading...</div>;
-}
+    if (initializing || !user) {
+      return <div> Loading...</div>;
+    }
 
 return children;
-    
 
-  return (
-    <>{children}</>
-  )
 }

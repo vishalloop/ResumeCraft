@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAppSelector } from "@/store/hooks";
 
 export default function Login() {
@@ -16,25 +15,25 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const loading = useAppSelector((state) => state.auth.loading);
-    const error = useAppSelector((state) => state.auth.error);
-    const user = useAppSelector((state) => state.auth.user);
+    const { initializing, loading, error, user } = useAppSelector( (state) => state.auth );
 
         useEffect(() => {
-          if (!loading && user) {
+          if (!initializing && user) {
             router.replace("/");
           }
-        }, [user, loading, router]);
+        }, [user, initializing, router]);
     
-      if(loading) return <div>Loading...</div>
+      if(initializing) return <div>Loading...</div>
 
 
-    const handleSubmit = async (e : React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         try {
             await handleLogin({ email, password});
-        } catch {}
+        } catch {
+          // Error is handled by Redux in executeAuthRequest.
+        }
     }
 
   return (

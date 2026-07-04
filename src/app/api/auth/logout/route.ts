@@ -8,18 +8,17 @@ import { NextResponse } from "next/server";
 
 export async function POST() {
     try {
-        
-        await getCurrentUser();
-
         const token = await getAuthCookie();
-        
-        if(!token) {
-            throw new ApiError("Unauthorized Access.", 401);
-        }
 
         await clearAuthCookie();
 
-        await blacklistToken(token);
+        if (token) {
+            try {
+                await blacklistToken(token);
+            } catch (e) {
+                console.error("Error blacklisting token on logout:", e);
+            }
+        }
 
         return NextResponse.json<ApiResponse>({
             success : true,
@@ -27,7 +26,6 @@ export async function POST() {
         },{
             status : 200,
         });
-
 
     } catch (error) {
         return errorResponse(error);
